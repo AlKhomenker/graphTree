@@ -1,0 +1,22 @@
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.App {
+  height: 100vh;
+  background: #ececec;
+}
+
+.delay {
+  display: flex;
+  align-items: center;
+  width: 200px;
+}
+.email {
+  width: 200px;
+}
+.react-flow__handle.connectable {
+  opacity: 0;
+  pointer-events: none !important;
+}

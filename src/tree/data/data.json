@@ -1,0 +1,187 @@
+ [ 
+   {
+    "id": "100",
+    "version": 1,
+    "type": "cartAbandonment",
+    "width": 450,
+    "height": 200,
+    "settings": {
+      "name": "Start Trigger1",
+      "description": "Description description description description description description description description1 ",
+      "belongAudience": "belongAudience 1",
+      "trigger": "trigger 1",
+      "targetingConditions": [
+        {
+          "phrase": "Users whose current cart amount",
+          "source": "CustomerCart",
+          "dataType": "Range",
+          "uiControl": "Input",
+          "adGroupId": 5007,
+          "companyId": 5258,
+          "conditionType": "CustomerCartPrice",
+          "comparisonOperatorSettings": {
+              ">": "is above",
+              "<": "is below",
+              "=": "is",
+              "-": "is between"
+          },
+          "id": 551,
+          "insertTime": "2021-12-20T08:55:40.000Z",
+          "updateTime": "2021-12-20T08:55:40.000Z",
+          "label": "Cart Total Amount",
+          "tcDefinitions": [
+              {
+                  "id": 1,
+                  "conditionType": "CustomerCartNumberOfItems",
+                  "source": "CustomerCart",
+                  "dataType": "Range",
+                  "uiControl": "Input",
+                  "phrase": "Users whose current number of items in cart",
+                  "label": "Cart Items Number",
+                  "comparisonOperatorSettings": {
+                      ">": "is above",
+                      "<": "is below",
+                      "=": "is",
+                      "-": "is between"
+                  }
+              },
+              {
+                  "id": 2,
+                  "conditionType": "CustomerCartPrice",
+                  "source": "CustomerCart",
+                  "dataType": "Range",
+                  "uiControl": "Input",
+                  "phrase": "Users whose current cart amount",
+                  "label": "Cart Total Amount",
+                  "comparisonOperatorSettings": {
+                      ">": "is above",
+                      "<": "is below",
+                      "=": "is",
+                      "-": "is between"
+                  }
+              }
+          ],
+          "value": [
+              100,
+              null
+          ],
+          "comparisonOperator": ">"
+        }
+      ]
+    },
+    "children": [
+      {
+        "id": "1dot",
+        "type": "dot",
+        "width": 10,
+        "height": 10,
+        "children": [
+          {
+            "id": "1",
+            "version": 1,
+            "type": "email",
+            "width": 450,
+            "height": 200,
+            "settings": {
+              "state": "active",
+              "name": "Email1",
+              "subject": " Subject",
+              "previewText": "Text",
+              "fromName": " Name ",
+              "fromEmail": " Email ",
+              "skipNonOptedIn": false,
+              "previewUrl": "/v3/static/media/test.1f6e07ac.png",
+              "strategy": 1,
+              "productsToDisplay": "products"
+            },
+            "children":[
+              {
+                "id": "1dot",
+                "type": "dot",
+                "width": 10,
+                "height": 10,
+                "children": [
+                  {
+                    "id": "2",
+                    "version": 1,
+                    "type": "delay",
+                    "width": 300,
+                    "height": 160,
+                    "settings": {
+                      "name": "Delay",
+                      "state": "active",
+                      "interval": {
+                        "value": "3",
+                        "unit": "days"
+                      },
+                      "daysAndTime": {
+                        "timeslots": [
+                          {
+                            "day": 0,
+                            "endTime": "14:30",
+                            "startTime": "10:30"
+                          },
+                          {
+                            "day": 1,
+                            "endTime": "14:30",
+                            "startTime": "9:30"
+                          },
+                          {
+                            "day": 2,
+                            "endTime": "23:30",
+                            "startTime": "18:30"
+                          },
+                          {
+                            "day": 3,
+                            "endTime": "19:30",
+                            "startTime": "18:30"
+                          },
+                          {
+                            "day": 4,
+                            "endTime": "14:30",
+                            "startTime": "13:30"
+                          },
+                          {
+                            "day": 5,
+                            "endTime": "14:30",
+                            "startTime": "9:30"
+                          },
+                          {
+                            "day": 6,
+                            "endTime": "19:30",
+                            "startTime": "18:30"
+                          }
+                        ],
+                        "timezone": "Asia/Jerusalem",
+                        "type": "week"
+                      }
+                    }
+                  },
+                  {
+                    "id": "3",
+                    "version": 1,
+                    "type": "email",
+                    "width": 450,
+                    "height": 200,
+                    "settings": {
+                      "state": "active",
+                      "name": "Email2",
+                      "subject": " Subject",
+                      "previewText": "Text",
+                      "fromName": " Name ",
+                      "fromEmail": " Email ",
+                      "skipNonOptedIn": false,
+                      "previewUrl": "/v3/static/media/test.1f6e07ac.png",
+                      "strategy": 1,
+                      "productsToDisplay": "products"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

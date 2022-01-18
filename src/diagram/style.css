@@ -1,0 +1,31 @@
+.container {
+  width: 100%;
+  height: 100vh;
+}
+
+.custom {
+  transform: rotate(90deg);
+}
+
+svg.custom .node circle {
+  width: 100%;
+  height: 100%;
+}
+
+svg.custom .node text {
+  display: none;
+}
+
+svg.custom .node {
+  width: 100px;
+  height: 100px;
+}
+
+svg.custom path.link {
+  fill: none;
+  stroke: #2593b8;
+  stroke-width: 1.5px;
+}
+
+.red-node {
+}

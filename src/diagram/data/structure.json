@@ -1,0 +1,381 @@
+[
+    {
+      "id": "1",
+      "version": 1,
+      "description": "This Journey will be used as demo",
+      "settings": {
+        "name": "Journey",
+        "state": "active",
+        "type": "regular",
+        "impressions": 5,
+        "clicks": 10,
+        "ctr": 0.4,
+        "revenue": {
+          "amount": 124.66,
+          "currency": "USD"
+        },
+        "lastModified": 1638103311096,
+        "dateCreated": 1638103311096
+      },
+      "nodes": [
+        {
+          "id": "1",
+          "version": 1,
+          "type": "email",
+          "settings": {
+            "state": "active",
+            "name": "Email",
+            "subject": " Subject",
+            "previewText": "Text",
+            "fromName": " Name ",
+            "fromEmail": " Email ",
+            "skipNonOptedIn": false,
+            "previewUrl": "/v3/static/media/test.1f6e07ac.png",
+            "strategy": 1,
+            "productsToDisplay": "products"
+          }
+        },
+        {
+          "id": "2",
+          "version": 1,
+          "type": "delay",
+          "settings": {
+            "name": "Delay",
+            "state": "active",
+            "interval": {
+              "value": "3",
+              "unit": "days"
+            },
+            "daysAndTime": {
+              "timeslots": [
+                {
+                  "day": 0,
+                  "endTime": "14:30",
+                  "startTime": "10:30"
+                },
+                {
+                  "day": 1,
+                  "endTime": "14:30",
+                  "startTime": "9:30"
+                },
+                {
+                  "day": 2,
+                  "endTime": "23:30",
+                  "startTime": "18:30"
+                },
+                {
+                  "day": 3,
+                  "endTime": "19:30",
+                  "startTime": "18:30"
+                },
+                {
+                  "day": 4,
+                  "endTime": "14:30",
+                  "startTime": "13:30"
+                },
+                {
+                  "day": 5,
+                  "endTime": "14:30",
+                  "startTime": "9:30"
+                },
+                {
+                  "day": 6,
+                  "endTime": "19:30",
+                  "startTime": "18:30"
+                }
+              ],
+              "timezone": "Asia/Jerusalem",
+              "type": "week"
+            }
+          }
+        },
+        {
+          "id": "8",
+          "version": 1,
+          "type": "split",
+          "settings": {}
+        },
+        {
+          "id": "9",
+          "version": 1,
+          "type": "email",
+          "settings": {
+            "state": "active",
+            "name": "Email 4",
+            "subject": "Email Subject *",
+            "previewText": "Preview text",
+            "fromName": "From Name *",
+            "fromEmail": "From Email *",
+            "skipNonOptedIn": true,
+            "previewUrl": "/v3/static/media/test.1f6e07ac.png",
+            "strategy": 1,
+            "productsToDisplay": "products"
+          }
+        },
+        {
+          "id": "10",
+          "version": 1,
+          "type": "email",
+          "settings": {
+            "state": "active",
+            "name": "Email 5",
+            "subject": "Email Subject *",
+            "previewText": "Preview text",
+            "fromName": "From Name *",
+            "fromEmail": "From Email *",
+            "skipNonOptedIn": true,
+            "previewUrl": "/v3/static/media/test.1f6e07ac.png",
+            "strategy": 1,
+            "productsToDisplay": "products"
+          }
+        }
+      ],
+      "triggers": [
+        {
+          "id": "100",
+          "version": 1,
+          "type": "cartAbandonment",
+          "settings": {
+            "name": "Start Trigger1",
+            "description": "Description description description description description description description description1 ",
+            "belongAudience": "belongAudience 1",
+            "trigger": "trigger 1",
+            "targetingConditions": [
+              {
+                "phrase": "Users whose current cart amount",
+                "source": "CustomerCart",
+                "dataType": "Range",
+                "uiControl": "Input",
+                "adGroupId": 5007,
+                "companyId": 5258,
+                "conditionType": "CustomerCartPrice",
+                "comparisonOperatorSettings": {
+                    ">": "is above",
+                    "<": "is below",
+                    "=": "is",
+                    "-": "is between"
+                },
+                "id": 551,
+                "insertTime": "2021-12-20T08:55:40.000Z",
+                "updateTime": "2021-12-20T08:55:40.000Z",
+                "label": "Cart Total Amount",
+                "tcDefinitions": [
+                    {
+                        "id": 1,
+                        "conditionType": "CustomerCartNumberOfItems",
+                        "source": "CustomerCart",
+                        "dataType": "Range",
+                        "uiControl": "Input",
+                        "phrase": "Users whose current number of items in cart",
+                        "label": "Cart Items Number",
+                        "comparisonOperatorSettings": {
+                            ">": "is above",
+                            "<": "is below",
+                            "=": "is",
+                            "-": "is between"
+                        }
+                    },
+                    {
+                        "id": 2,
+                        "conditionType": "CustomerCartPrice",
+                        "source": "CustomerCart",
+                        "dataType": "Range",
+                        "uiControl": "Input",
+                        "phrase": "Users whose current cart amount",
+                        "label": "Cart Total Amount",
+                        "comparisonOperatorSettings": {
+                            ">": "is above",
+                            "<": "is below",
+                            "=": "is",
+                            "-": "is between"
+                        }
+                    },
+                    {
+                        "id": 3,
+                        "conditionType": "CustomerCartProductCategories",
+                        "source": "CustomerCart",
+                        "dataType": "Array",
+                        "uiControl": "Select",
+                        "phrase": "Users whose cart",
+                        "label": "Cart Items Categories",
+                        "comparisonOperatorSettings": {
+                            "=": "contains",
+                            "!=": "does not contain",
+                            "suffix": "items from categories:"
+                        }
+                    },
+                    {
+                        "id": 5,
+                        "conditionType": "Nationality",
+                        "source": "Customer",
+                        "dataType": "Array",
+                        "uiControl": "Select",
+                        "phrase": "Users whose Nationality",
+                        "label": "Customer Nationality",
+                        "comparisonOperatorSettings": {
+                            "=": "equals",
+                            "!=": "does not equal"
+                        }
+                    },
+                    {
+                        "id": 6,
+                        "conditionType": "PageUrl",
+                        "source": "Browser",
+                        "dataType": "Array",
+                        "uiControl": "Input",
+                        "phrase": "Users currently visiting a URL containing"
+                    },
+                    {
+                        "id": 7,
+                        "conditionType": "ProductCategory",
+                        "source": "Browser",
+                        "dataType": "Array",
+                        "uiControl": "Select",
+                        "phrase": "Users viewing a product from categories:",
+                        "comparisonOperatorSettings": {
+                            "=": "equals",
+                            "!=": "does not equal"
+                        }
+                    },
+                    {
+                        "id": 43,
+                        "conditionType": "UserList",
+                        "source": "User",
+                        "dataType": "Array",
+                        "uiControl": "Select",
+                        "phrase": "Users who subscribed to",
+                        "label": "Customer User List"
+                    },
+                    {
+                        "id": 44,
+                        "conditionType": "DateOfBirth",
+                        "source": "Customer",
+                        "dataType": "Date",
+                        "uiControl": "Datepicker",
+                        "phrase": "Customers whose Date of Birth is",
+                        "label": "Customer Date of Birth",
+                        "comparisonOperatorSettings": {
+                            ">": "after",
+                            "<": "before",
+                            "=": "on",
+                            "-": "between",
+                            ">-": "in",
+                            "==": "today"
+                        }
+                    }
+                ],
+                "value": [
+                    100,
+                    null
+                ],
+                "comparisonOperator": ">"
+            }
+            ]
+          }
+        }
+      ],
+      "relations": [
+        {
+          "parent": {
+            "id": "1",
+            "version": 1
+          },
+          "child": {
+            "id": "2",
+            "version": 1
+          },
+          "type": "next"
+        },
+        {
+          "parent": {
+            "id": "2",
+            "version": 1
+          },
+          "child": {
+            "id": "8",
+            "version": 1
+          },
+          "type": "next"
+        },
+        {
+          "parent": {
+            "id": "8",
+            "version": 1
+          },
+          "child": {
+            "id": "9",
+            "version": 1
+          },
+          "type": "next"
+        },
+        {
+          "parent": {
+            "id": "8",
+            "version": 1
+          },
+          "child": {
+            "id": "10",
+            "version": 1
+          },
+          "type": "next"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "version": 1,
+      "description": "This Journey will be used as demo",
+      "settings": {
+        "name": "Journey2",
+        "state": "pending",
+        "type": "regular",
+        "impressions": 5,
+        "clicks": 10,
+        "ctr": 0.4,
+        "revenue": {
+          "amount": 124.66,
+          "currency": "USD"
+        },
+        "lastModified": 1638103311096,
+        "dateCreated": 1638103311096
+      },
+      "nodes": [
+        {
+          "id": "1",
+          "version": 1,
+          "type": "email",
+          "settings": {
+            "state": "active",
+            "name": "Email 3",
+            "subject": "Email Subject *",
+            "previewText": "Preview text",
+            "fromName": "From Name *",
+            "fromEmail": "From Email *",
+            "skipNonOptedIn": true,
+            "previewUrl": "/v3/static/media/test.1f6e07ac.png",
+            "strategy": 1,
+            "productsToDisplay": "products"
+          }
+        }
+      ],
+      "triggers": [
+        {
+          "id": "101",
+          "version": 1,
+          "type": "cartAbandonment",
+          "settings": {
+            "name": "Start Trigger 2",
+            "description": "Description description description description description2 ",
+            "belongAudience": "belongAudience 2",
+            "trigger": "trigger 2",
+            "targetingConditions": []
+          }
+        }
+      ],
+      "relations": [],
+      "firstNode": {
+        "id": "1",
+        "version": 1
+      }
+    }
+  ]
