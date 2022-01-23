@@ -1,14 +1,18 @@
-
 import Tree from "react-d3-tree";
-import { EmailNode, DelayNode, SplitNode, StartNode, DotNode, ExitNode} from "../diagram/GraphService/nodes";
-import { useCenteredTree } from "./helpers";
+import { EmailNode, SmsNode, DelayNode, SplitNode, TestNode, StartNode, DotNode, ExitNode, ActionNode, PlusNode} from "../diagram/GraphService/nodes";
+
+const extraWidth = 500;
 
 const types = {
     cartAbandonment: StartNode,
     delay: DelayNode,
     email: EmailNode,
+    sms: SmsNode,
     split: SplitNode,
+    test: TestNode,
+    action: ActionNode,
     dot: DotNode,
+    plus: PlusNode,
     exit: ExitNode
 };
 
@@ -16,47 +20,43 @@ const RenderForeignObjectNode = (props) => {
    const{ nodeDatum} = props;
    const{id, type, width, height} = nodeDatum;
    const posX = - width/2;
+   const posY = - height/2;
 
   return(
-     <>
-      <foreignObject style={{width: width, height: height, x: posX}}>
-      {
-        Object.entries(types).map(([key, Component]) => {
+    <g>
+        <foreignObject style={{width: width, height: height, x: posX, y: posY}}>
+          {
+            Object.entries(types).map(([key, Component]) => {
 
-          if (type === key) {
-              return <Component key={id} {...nodeDatum}/>;
+              if (type === key) {
+                  return <Component key={id} {...nodeDatum}/>;
+              }
+              return null;
+            })
           }
-          return null;
-        })
-      }
       </foreignObject>
-    </> 
+    </g>
   )
 }
 
 
 export const CenteredTree = ({elements}) =>{
-  const{node} = elements;
-  const [translate, containerRef] = useCenteredTree();
-  let disProp = {x: 450, y: 200};
-
+  const { innerWidth: widthWindow } = window;
+  //const nodeSize = {x: 150, y: 200};
   return (
-    <div style={{width: "100vw",height: "100vh",background: "#eee"}} ref={containerRef}>
+    <div style={{width: "100%", height: "100%", background: "#eee", margin: '0 auto'}}>
       <Tree
-        data={node}
-        translate={translate}
-        nodeSize={disProp}
+        data={elements}
+        translate={{ x: widthWindow/2, y: 100 }}
+        //nodeSize={nodeSize}
         orientation="vertical"
-        pathFunc="step"
-        zoom="0.6"
-        branchNodeClassName="node__branch"
-        leafNodeClassName="node__leaf"
-        renderCustomNodeElement={(node) =>
-          RenderForeignObjectNode({ ...node})
-        }
+        pathFunc="straight"//step
+        zoom="0.7"
+        separation={{ nonSiblings: 4, siblings: 3 }}
+        renderCustomNodeElement={(node) => RenderForeignObjectNode({ ...node})}
       />
     </div>
-  );
-  }
+  )
+}
 
 

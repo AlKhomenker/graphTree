@@ -5,4 +5,7 @@ import ExitNode from './ExitNode';
 import ActionNode from './ActionNode';
 import SplitNode from './SplitNode';
 import DotNode from './DotNode';
-export {DelayNode, EmailNode, StartNode, ExitNode, ActionNode, SplitNode, DotNode};
+import PlusNode from './PlusNode';
+import SmsNode from './SmsNode';
+import TestNode from './TestNode';
+export {DelayNode, EmailNode, SmsNode, TestNode, StartNode, ExitNode, ActionNode, SplitNode, DotNode, PlusNode};

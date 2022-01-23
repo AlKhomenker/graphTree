@@ -4,7 +4,6 @@ import {Avatar, Box, IconButton, Typography} from '@material-ui/core';
 import {Close} from '@material-ui/icons';
 
 import {useStyles} from '../../style/use-styles';
-import { Handle } from 'react-flow-renderer';
 import { actions } from '../config';
 
 function ActionNode(props) {
@@ -13,15 +12,14 @@ function ActionNode(props) {
     const classes = useStyles();
 
     return (
-       <>
-       <Handle type="target" position="top" /> 
+        <>
             <Box className={classes.componentAction}>
                 <Box className={classes.blockIcon}>
                     <IconButton className={classes.icon} onClick={() => onActionNodeClick({type:'close', id})}>
                         <Close/>
                     </IconButton>
                 </Box>
-                
+                    
                 <Box className={classes.blockFlex}>  
                     {
                         actions.map((item) =>{
@@ -36,8 +34,7 @@ function ActionNode(props) {
                     }
                 </Box>
             </Box>
-        <Handle type="source" position="bottom" />
-       </>
+        </>
     );
 }
 

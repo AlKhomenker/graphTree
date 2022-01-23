@@ -16,7 +16,7 @@ table {
 .email {
   width: 200px;
 }
-.react-flow__handle.connectable {
-  opacity: 0;
-  pointer-events: none !important;
+.rd3t-node {
+  stroke: none !important;
+  stroke-width: 0 !important;
 }

@@ -13,28 +13,57 @@ const useLogic = (data) => {
 
 
     const nodeEvent = (data) => {
-        console.log('nodeEvent: ', data); 
+        const{id, type} = data;
+        let newNodes, nodesWithEvents, dataTree;
+
+        switch(type) {
+            case nodeTypes.dot:
+                newNodes = GraphService.addNewNode(nodeTypes.action, data, newArr);
+                nodesWithEvents = GraphService.addEventsToNodes(newNodes, nodeEvent, actionNodeEvent);
+                dataTree = GraphService.createTreeData(nodesWithEvents)[0];
+                setNodes(newNodes);
+                setElements(dataTree);
+              break;
+            case nodeTypes.plus:
+                //add changes by a new logic
+                newNodes = GraphService.addNewNode(nodeTypes.action, data, newArr);
+                nodesWithEvents = GraphService.addEventsToNodes(newNodes, nodeEvent, actionNodeEvent);
+                dataTree = GraphService.createTreeData(nodesWithEvents)[0];
+                setNodes(newNodes);
+                setElements(dataTree);
+              break;
+            case nodeTypes.exit:
+                console.log('exit event:', id);
+              break;
+            default:
+                console.log(type, id);  
+          }
     }
 
 
      const actionNodeEvent = (data) => {
-        let newNodes;
+        const{id, type} = data;
 
-        if(data.type === nodeTypes.close){
-            newNodes = GraphService.removeNode(data.id, newArr);
+        let newNodes;
+        if(type === nodeTypes.close){
+            newNodes = GraphService.removeNode(id, newArr);
         }else{
-            newNodes = GraphService.addNewNode(data.type, data, newArr, nodeEvent);
-            newNodes = GraphService.calculatePositions([...newNodes]);
+            newNodes = GraphService.addNewNode(type, data, newArr);
         }
+        const nodesWithEvents = GraphService.addEventsToNodes(newNodes, nodeEvent, actionNodeEvent);
+        const dataTree = GraphService.createTreeData(nodesWithEvents)[0];
         setNodes(newNodes);
+        setElements(dataTree);
     }
 
-
+// eslint-disable-next-line
     useEffect(() => {
         const newNodes = GraphService.prepareInitialData(data);
+        //console.log({newNodes});
+        setNodes(newNodes);
         const nodesWithEvents = GraphService.addEventsToNodes(newNodes, nodeEvent);
-        const dataConvertions = GraphService.createNewDataFormat(nodesWithEvents);
-        setElements(dataConvertions);
+        const dataTree = GraphService.createTreeData(nodesWithEvents)[0];
+        setElements(dataTree);
     }, []);
 
 

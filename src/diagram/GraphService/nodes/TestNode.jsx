@@ -40,8 +40,9 @@ function SplitNode(props) {
             <Typography>...</Typography>
             <Avatar className={classes.avatar}/>
         </Grid>
-      </Grid>   
+      </Grid>
     </>
+        
   );
 }
 

@@ -10,30 +10,28 @@ import { useStyles } from "../../style/use-styles";
 import { Handle } from "react-flow-renderer";
 
 function EmailNode(props) {
-  // const { data, id } = props;
-  // const { settings, onClick, height } = data;
-  // const { name, subject } = settings;
-  const { settings} = props;
+  const { data, id ,type} = props;
+  const { settings, onNodeClick} = data;
+  const { name, subject } = settings;
+
   const classes = useStyles();
   
   return (
     <>
-          <Grid container className={classes.component}
-          //  onClick={onClick} id={id}
-           >
+          <Grid container className={classes.component}  onClick={() => onNodeClick({type, id})}>
             <Grid item xs={10}>
                 <Box className={classes.txtBlock}>
                     <Typography variant="h6" className={classes.h6}>
-                        {settings.name}
+                        {name}
                     </Typography>
                     <Box className={classes.box} style={{color:'#808080'}}> | </Box>
                     <Typography variant="h6" style={{color:'#808080'}}>
-                        {settings.name}
+                        {name}
                     </Typography>
                 </Box>
 
                 <Typography variant="h6" style={{color:'#808080'}}>
-                    {settings.subject}
+                    {subject}
                 </Typography>
 
                 <MobileStepper className={classes.steps} variant="dots" steps={3} position="static" />

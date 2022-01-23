@@ -73,15 +73,35 @@ export const useStyles = makeStyles(() => ({
         borderRadius: '30px',
         margin: '0 auto',
         border: 'solid 1px #979797',
+        backgroundColor: '#eee',
         '&:hover': {
+            backgroundColor: '#eee',
             boxShadow: '1px 1px 5px #888888'
         }
     },
+    componentPlus: {
+        height: '30px',
+        width: '30px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        color: 'white',
+        backgroundColor: '#979797',
+        borderRadius: '50%'
+    },
     componentDot: {
-        height: '10px',
-        width: '10px',
+        height: '30px',
+        width: '30px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    dot: {
+        height: '15px',
+        width: '15px',
         borderRadius: '50%',
-        backgroundColor:'red'
+        backgroundColor:'#979797',
+        color: 'transparent'
     },
     avatar: {
         width: '60px',

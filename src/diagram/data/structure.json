@@ -93,7 +93,14 @@
           "id": "8",
           "version": 1,
           "type": "split",
-          "settings": {}
+          "settings": {
+            "name": "Split 1",
+            "state": "active",
+            "interval": {
+              "value": "0",
+              "unit": "days"
+            }
+          }
         },
         {
           "id": "9",
@@ -119,6 +126,53 @@
           "settings": {
             "state": "active",
             "name": "Email 5",
+            "subject": "Email Subject *",
+            "previewText": "Preview text",
+            "fromName": "From Name *",
+            "fromEmail": "From Email *",
+            "skipNonOptedIn": true,
+            "previewUrl": "/v3/static/media/test.1f6e07ac.png",
+            "strategy": 1,
+            "productsToDisplay": "products"
+          }
+        },
+        {
+          "id": "11",
+          "version": 1,
+          "type": "split",
+          "settings": {
+            "name": "Split 2",
+            "state": "active",
+            "interval": {
+              "value": "1",
+              "unit": "week"
+            }
+          }
+        },
+        {
+          "id": "12",
+          "version": 1,
+          "type": "email",
+          "settings": {
+            "state": "active",
+            "name": "Email 12",
+            "subject": "Email Subject *",
+            "previewText": "Preview text",
+            "fromName": "From Name *",
+            "fromEmail": "From Email *",
+            "skipNonOptedIn": true,
+            "previewUrl": "/v3/static/media/test.1f6e07ac.png",
+            "strategy": 1,
+            "productsToDisplay": "products"
+          }
+        },
+        {
+          "id": "13",
+          "version": 1,
+          "type": "email",
+          "settings": {
+            "state": "active",
+            "name": "Email 13",
             "subject": "Email Subject *",
             "previewText": "Preview text",
             "fromName": "From Name *",
@@ -318,6 +372,39 @@
             "version": 1
           },
           "type": "next"
+        },
+        {
+          "parent": {
+            "id": "10",
+            "version": 1
+          },
+          "child": {
+            "id": "11",
+            "version": 1
+          },
+          "type": "next"
+        },
+        {
+          "parent": {
+            "id": "11",
+            "version": 1
+          },
+          "child": {
+            "id": "12",
+            "version": 1
+          },
+          "type": "next"
+        },
+        {
+          "parent": {
+            "id": "11",
+            "version": 1
+          },
+          "child": {
+            "id": "13",
+            "version": 1
+          },
+          "type": "next"
         }
       ]
     },
@@ -343,10 +430,40 @@
         {
           "id": "1",
           "version": 1,
+          "type": "split",
+          "settings": {
+            "name": "Split 2",
+            "state": "active",
+            "interval": {
+              "value": "1",
+              "unit": "week"
+            }
+          }
+        },
+        {
+          "id": "2",
+          "version": 1,
           "type": "email",
           "settings": {
             "state": "active",
-            "name": "Email 3",
+            "name": "Email 1",
+            "subject": "Email Subject *",
+            "previewText": "Preview text",
+            "fromName": "From Name *",
+            "fromEmail": "From Email *",
+            "skipNonOptedIn": true,
+            "previewUrl": "/v3/static/media/test.1f6e07ac.png",
+            "strategy": 1,
+            "productsToDisplay": "products"
+          }
+        },
+        {
+          "id": "3",
+          "version": 1,
+          "type": "email",
+          "settings": {
+            "state": "active",
+            "name": "Email 2",
             "subject": "Email Subject *",
             "previewText": "Preview text",
             "fromName": "From Name *",
@@ -357,6 +474,7 @@
             "productsToDisplay": "products"
           }
         }
+        
       ],
       "triggers": [
         {
@@ -372,7 +490,30 @@
           }
         }
       ],
-      "relations": [],
+      "relations": [
+        {
+          "parent": {
+            "id": "1",
+            "version": 1
+          },
+          "child": {
+            "id": "2",
+            "version": 1
+          },
+          "type": "next"
+        },
+        {
+          "parent": {
+            "id": "1",
+            "version": 1
+          },
+          "child": {
+            "id": "3",
+            "version": 1
+          },
+          "type": "next"
+        }
+      ],
       "firstNode": {
         "id": "1",
         "version": 1

@@ -6,21 +6,18 @@ import { Handle } from "react-flow-renderer";
 
 
 function DelayNode(props) {
-  const { settings} = props;
-  // const { data, id } = props;
-  // const { settings, onClick, height } = data;
+  const { id, data, type} = props;
+   const { onNodeClick, settings} = data;
+  const { name, interval } = settings;
+ 
   const classes = useStyles();
-  //const { name, interval } = settings;
-
   return (
     <>
         <Box
-          className={`${classes.component} ${classes.componentDelay}`}
-          // onClick={onClick}
-        >
-          <Typography variant="h6">{settings.name}</Typography>
+          className={`${classes.component} ${classes.componentDelay}`} onClick={() => onNodeClick({type, id, settings})}>
+          <Typography variant="h6">{name}</Typography>
           <Typography variant="h6">
-            {settings.interval.value} {settings.interval.unit}
+            {interval.value} {interval.unit}
           </Typography>
           <Avatar />
           <Typography>...</Typography>

@@ -6,7 +6,7 @@ import dataTree from "./tree/data/data.json";
 import structure from "./diagram/data/structure.json";
 
 const data = dataTree[0];
-const structureArr = structure[0];
+const structureArr = structure[1];
 
 function App() {
   const { elements } = useLogic(structureArr);

@@ -2,24 +2,16 @@ const nodeTypes = {
     start: 'cartAbandonment',
     email: 'email',
     delay: 'delay',
+    sms: 'sms',
     split: 'split',
+    test: 'test',
     exit: 'exit',
     action: 'action',
     close: 'close',
+    plus: 'plus',
     dot: 'dot'
 };
 
-const edgeTypes = {
-    default: 'default',
-    exitEdge: 'exitEdge',
-    buttonedge: 'buttonedge'
-}
-
-const diagramClass = {
-    diagramEdge: 'diagram-edge',
-    dragbleItem: 'dragble-item',
-    reactFlowEdgePath: 'react-flow__edge-path'
-}
 
 const actions = [
     {action:'Email', type:'email'},
@@ -44,7 +36,18 @@ const nodesInitialSettings = {
         strategy: 0,
         productsToDisplay: ''
     },
-    sms: {},
+    sms: {
+        state: '',
+        name: 'new Sms',
+        subject: '',
+        previewText: '',
+        fromName: '',
+        fromEmail: '',
+        skipNonOptedIn: false,
+        previewUrl: '',
+        strategy: 0,
+        productsToDisplay: ''
+    },
     delay: {
         name: 'new Delay',
         state: '',
@@ -58,8 +61,26 @@ const nodesInitialSettings = {
             type: ''
         }
     },
-    split: {},
-    test: {}
+    split: {
+        name: 'new Split',
+        state: '',
+        firstBranch: 'Yes',
+        secondBranch: 'No',
+        interval: {
+            value: '',
+            unit: ''
+        }
+    },
+    test: {
+        name: 'new Test',
+        state: '',
+        firstBranch: 'A',
+        secondBranch: 'B',
+        interval: {
+            value: '',
+            unit: ''
+        }
+    }
 };
 
 
@@ -84,7 +105,15 @@ const nodesConfig = {
         width: 450,
         height: 200
     },
+    [nodeTypes.sms]: {
+        width: 450,
+        height: 200
+    },
     [nodeTypes.split]: {
+        width: 450,
+        height: 200
+    },
+    [nodeTypes.test]: {
         width: 450,
         height: 200
     },
@@ -98,17 +127,18 @@ const nodesConfig = {
     },
     [nodeTypes.action]: {
         width: 600,
-        height: 120
+        height: 200
     },
     [nodeTypes.dot]: {
-        width: 10,
-        height: 10
+        width: 30,
+        height: 30
+    },
+    [nodeTypes.plus]: {
+        width: 30,
+        height: 30
     }
 };
 
-const relationsConfig = {
-    animated: false,
-    className: diagramClass.diagramEdge
-};
 
-export {nodesConfig, relationsConfig, nodeTypes, edgeTypes, diagramClass, actions, nodesInitialSettings};
+
+export {nodesConfig, nodeTypes, actions, nodesInitialSettings};
