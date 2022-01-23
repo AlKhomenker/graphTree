@@ -15,6 +15,7 @@ class GraphService {
     };
     
 
+
     createNodes = (nodes) => nodes.map((node) => {
         const { type, settings } = node;
         const { width, height } = nodesConfig[type];
@@ -29,6 +30,7 @@ class GraphService {
     });
 
 
+
     createExitNode = (title) => ({
         id: uuidv4(),
         width: nodesConfig[nodeTypes.exit].width,
@@ -38,6 +40,7 @@ class GraphService {
         ...nodesConfig.shared,
         data: {title: title}
     });
+
 
 
     createDotNode = (type) => ({
@@ -50,6 +53,7 @@ class GraphService {
     });
 
 
+
     createActionNode = () => ({
         id: uuidv4(),
         width: nodesConfig[nodeTypes.action].width,
@@ -58,6 +62,7 @@ class GraphService {
         style: nodesConfig.style,
         ...nodesConfig.shared,
     });
+
 
 
     addDefaultNode = (data, nodes) => {
@@ -97,6 +102,7 @@ class GraphService {
         
         return [...nodes]; 
     }
+
 
 
     addNodeWithTwoRelations = (data, nodes) => {
@@ -147,6 +153,7 @@ class GraphService {
     }
 
 
+
     addNewNode = (type, data, nodes) => {
         if(type === nodeTypes.action){
             return this.addActionNode(data.id, nodes);
@@ -158,6 +165,7 @@ class GraphService {
             }
         }      
     };
+
 
 
     addActionNode = (id, nodes) => {   
@@ -176,6 +184,7 @@ class GraphService {
 
         return [...nodes];
     }
+
 
 
     removeNode = (id, nodes) => { // change if need to remove node with all branch
@@ -199,6 +208,7 @@ class GraphService {
     };
 
 
+
     getLastNode = (relations, nodes) => {
         let nodeIds = [];
         for (const node of nodes) {
@@ -211,6 +221,7 @@ class GraphService {
         const lastNode = nodes.find(node => node.id === nodeIds[0]);
         return lastNode;
     };
+
 
 
     createObjRelation = (parentNodeId, childNodeId) => {
@@ -228,6 +239,7 @@ class GraphService {
     }
 
 
+
     newNodRel = [];
     newRel;
     createRelation = (nodes, relations) => {   
@@ -239,124 +251,62 @@ class GraphService {
      }
 
 
-    
 
-    // elem = (value) => {
-    //     const node = value; 
-    //     return {node}
-    // }
+    newData = [];
+    parentId = [];
+    childId = [];
+    newNode = {};
+    newDot = {};
+    createNewData = (relations, nodes) => {
 
+        relations.map(rel => {
+            this.childId.push(rel.child.id);
+            this.parentId.push(rel.parent.id);
 
-    // createLinkedList(array){
-    //     let node, temp;
-    //     for(let i = array.length-1; i >= 0; i--){
-    //         if(!node){
-    //             node = this.elem(array[i]);
-    //         }else {
-    //             temp = this.elem(array[i]);
-    //             temp.next = node;
-    //             node = temp;
-    //         }
-    //     }
-    //     return node;
-    // }
+            if(rel.parent.id === null){
+                this.newNode = {
+                    id: rel.child.id, 
+                    parent_id: rel.parent.id, 
+                    ...nodes[rel.child.id] 
+                }
+                this.newData = [...this.newData, this.newNode];
+            }else{
+                this.newDot = this.createDotNode(nodeTypes.dot);
+                this.newDot.parent_id = rel.parent.id;
+                this.newNode = {
+                    id: rel.child.id, 
+                    parent_id: this.newDot.id, 
+                    ...nodes[rel.child.id] 
+                }
+                this.newData = [...this.newData, this.newDot, this.newNode];
+            }
 
+            return this.newData
+        })
 
-    // createNewDataFormat(array){
-    //     let currentNode, parentNode = {};
-    //     for(let i = array.length-1; i >= 0; i--){
-    //         currentNode = array[i];
-    //         parentNode = array[i-1];
-    //         if(parentNode){
-    //             parentNode.children = [currentNode];
-    //         }
-    //     }
-    //     const node = this.createLinkedList(array);
-    //     return node;
-    // }
+        const lastsNodeIds = this.childId.filter(id => !this.parentId.includes(id));
+        let lastsNode = [];
 
-    // newArrRelations = [];
-    // parent = 0;
-    // childrenNodes = [];
-    // sortData(nodes, relations, currentNode){
-    //     relations.forEach((rel, i) => {
-    //         if(currentNode.id === rel.parent.id){
-    //             const childNode = nodes.find(node => node.id === rel.child.id);
-    //             this.newArrRelations = [...this.newArrRelations, childNode];
-    //            // relations.splice(i, 1);
-    //             this.sortData(nodes, relations, childNode);
-    //         }
-    //     });
-    //     return this.newArrRelations;
-    // };
+        lastsNodeIds.forEach(id => {
+            const currentNode = this.newData.find(node => node.id === id);
 
-    // newArrRelations = [];
-    // parent = '0';
-    // childrenNodes = [];
-    
-    // sortData(nodes, relations, currentNode){
-    //     relations.forEach((rel) => {
-    //         if(currentNode.id === rel.parent.id){
-    //             if(this.parent === rel.parent.id){
-    //                 console.log(this.parent);
-    //                 const children = relations.filter(node => node.parent.id === this.parent);
-    //                 const parentIndex = nodes.findIndex(node => node.id === this.parent);
+            const plusNode = this.createDotNode(nodeTypes.plus);
+            const exitNode = this.createExitNode(nodeTypes.exit);
 
-    //                 children.map((item) => {
-    //                     const childNode = nodes.find(node => node.id === item.child.id);
-    //                     this.childrenNodes = [...this.childrenNodes, childNode];
-    //                     this.parent = item.child.id;
-    //                     console.log(this.parent);
-    //                     return this.childrenNodes
-    //                 });
-    //                 this.parent = rel.parent.id;
-    //                 this.newArrRelations.splice(parentIndex, 1, this.childrenNodes);
-    //             }else{
-    //                 console.log(this.parent);
-    //                 const childNode = nodes.find(node => node.id === rel.child.id);
-    //                 this.newArrRelations = [...this.newArrRelations, childNode];
-    //                 this.parent = rel.parent.id;
-    //                 this.sortData(nodes, relations, childNode);
-    //             }
-    //         }
-    //     });
-    //     return this.newArrRelations;
-    // };
+            plusNode.parent_id = currentNode.id;
+            exitNode.parent_id = plusNode.id;
+            lastsNode = [...lastsNode, plusNode, exitNode]
+        })
 
+        return [...this.newData, ...lastsNode]
+    }
 
-    // prepareInitialData(data){
-    //     if (!data) {
-    //         //create journey
-    //         return;
-    //     }
-    //     const dot = {
-    //         id: uuidv4(),
-    //         type: 'dot',
-    //         width: 10,
-    //         height: 10,
-    //         children: []
-    //     }
-
-    //     const startNode = data.triggers[0];     
-    //     const firstNode = data.nodes.filter(node => !data.relations.some(item => node.id === item.child.id))[0];
-    //     const exitNode = this.createExitNode('Exit');
-    //     const sortData = this.sortData(data.nodes, data.relations, firstNode)
-        
-    //     const sortNodes = [startNode, firstNode, ...sortData];
-
-
-    //     const allNodes =  sortNodes.reduce((arr, allNodes) => [...arr, allNodes, dot], []);
-    //     allNodes.splice(allNodes.length-1, 1);
-
-    //     const nodes = this.createNodes(allNodes);
-    //     return [...nodes, exitNode];
-    // };
 
 
     createTreeData = (items, id = null, link = 'parent_id') => {
-        //console.log(items);
         return items.filter(item => item[link] === id).map(item => ({ ...item, children: this.createTreeData(items, item.id) }));
     }
+
 
 
     prepareInitialData(data){
@@ -365,55 +315,20 @@ class GraphService {
             return;
         }
         
-        // const startNode = data.triggers[0];     
-        // const firstNode = data.nodes.filter(node => !data.relations.some(item => node.id === item.child.id))[0];
-        // const exitNode = this.createExitNode('Exit');
-        // const relations = data.relations;
-
-        // const allNodes =  data.nodes.reduce((arr, allNodes) => [...arr, allNodes, this.createDotNode()], []);
-        // allNodes.splice(allNodes.length-1, 1);
-
-        // const dataNodes = this.createNodes([...allNodes, startNode]);
-        // const nodes = dataNodes.reduce((prev, current) => ({ ...prev, [current.id]: current }),{});
-        
-        // const startRelation = this.createObjRelation(null, startNode.id);
-        // const firstRelation = this.createObjRelation(startNode.id, firstNode.id);
-        
-        // const allRelations = [...relations, startRelation, firstRelation];
-        
-        // const newData = allRelations.map(rel => {
-        //     return { id: rel.child.id, parent_id: rel.parent.id, ...nodes[rel.child.id] }
-        // })
-    
-        // return newData;
-
         const startNode = data.triggers[0];     
-    //  const firstNode = data.nodes.filter(node => !data.relations.some(item => node.id === item.child.id))[0];
-        const exitNode = this.createExitNode(nodeTypes.exit);
-        const plusNode = this.createDotNode(nodeTypes.plus);
+        const firstNode = data.nodes.filter(node => !data.relations.some(item => node.id === item.child.id))[0];
         const relations = data.relations;
 
-        const allNodes =  [startNode,...data.nodes, ].reduce((arr, allNodes) => [...arr, allNodes, this.createDotNode(nodeTypes.dot)], []);
-        allNodes.splice(allNodes.length-1, 1);
+        const dataNodes = this.createNodes([...data.nodes, startNode]);
+        const nodes = dataNodes.reduce((prev, current) => ({ ...prev, [current.id]: current }),{});
 
-        const dataNodes = this.createNodes(allNodes);
-    //  const nodes = dataNodes.reduce((prev, current) => ({ ...prev, [current.id]: current }),{});
         const startRelation = this.createObjRelation(null, startNode.id);
-    //  const firstRelation = this.createObjRelation(startNode.id, firstNode.id);
-        const relationsWithDotNode = this.createRelation(dataNodes, relations);
-        const allRelations = [ startRelation, ...relationsWithDotNode];
-
-        const newData = allRelations.map(rel => {
-            const currentNode = dataNodes.find(node => node.id === rel.child.id);
-            return { id: rel.child.id, parent_id: rel.parent.id || null, ...currentNode }
-        })
+        const firstRelation = this.createObjRelation(startNode.id, firstNode.id);
         
-        const lastNode = newData.find(node => node.id === null);
-        plusNode.parent_id = lastNode.parent_id;
-        exitNode.parent_id = plusNode.id;
-
-        newData.splice(newData.findIndex(node => node.id === null), 1, plusNode, exitNode);
-      return newData;
+        const allRelations = [...relations, startRelation, firstRelation];   
+        const newData = this.createNewData(allRelations, nodes);
+  
+        return newData;
     };
 
 

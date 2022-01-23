@@ -13,7 +13,7 @@ function StartNode(props) {
 
   return (
     <>
-      <Grid container className={`${classes.component} ${classes.componentStart}`} onClick={() => onNodeClick({type, id})}>
+      <Grid container className={`${classes.component} ${classes.componentStart}`} onClick={() => onNodeClick({type, id, settings})}>
         <Grid item xs={10}>
           <Box className={classes.txtBlock}>
             <Typography variant="h6" className={classes.h6}>

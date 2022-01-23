@@ -42,13 +42,13 @@ const RenderForeignObjectNode = (props) => {
 
 export const CenteredTree = ({elements}) =>{
   const { innerWidth: widthWindow } = window;
-  //const nodeSize = {x: 150, y: 200};
+  const nodeSize = {x: 150, y: 150};
   return (
     <div style={{width: "100%", height: "100%", background: "#eee", margin: '0 auto'}}>
       <Tree
         data={elements}
         translate={{ x: widthWindow/2, y: 100 }}
-        //nodeSize={nodeSize}
+        nodeSize={nodeSize}
         orientation="vertical"
         pathFunc="straight"//step
         zoom="0.7"

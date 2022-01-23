@@ -9,7 +9,7 @@ import { useStyles } from "../../style/use-styles";
 
 
 function SplitNode(props) {
-  const { id ,data} = props;
+  const { id, data, type} = props;
   const { settings, onNodeClick } = data;
   const { name, interval } = settings;
   
@@ -17,7 +17,7 @@ function SplitNode(props) {
   const classes = useStyles();
   return (
     <>
-      <Grid container className={classes.component} id={id} onClick={() => onNodeClick(id)}>
+      <Grid container className={classes.component} id={id} onClick={() => onNodeClick({type, id})}>
         <Grid item xs={10}>
              <Box className={classes.txtBlock}>
                  <Typography variant="h6" className={classes.h6}>

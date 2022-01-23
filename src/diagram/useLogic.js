@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react'
 import GraphService from './GraphService';
-import { nodeTypes } from './GraphService/config';
-
-
+import { nodeTypes } from './GraphService/config'
 
 let newArr = [];
 
@@ -56,14 +54,15 @@ const useLogic = (data) => {
         setElements(dataTree);
     }
 
-// eslint-disable-next-line
+    
+
     useEffect(() => {
         const newNodes = GraphService.prepareInitialData(data);
-        //console.log({newNodes});
-        setNodes(newNodes);
         const nodesWithEvents = GraphService.addEventsToNodes(newNodes, nodeEvent);
         const dataTree = GraphService.createTreeData(nodesWithEvents)[0];
+        setNodes(newNodes);
         setElements(dataTree);
+// eslint-disable-next-line  
     }, []);
 
 
