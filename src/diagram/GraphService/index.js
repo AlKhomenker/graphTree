@@ -14,12 +14,12 @@ class GraphService {
         action: ActionNode
     };
     
-
+    
 
     createNodes = (nodes) => nodes.map((node) => {
         const { type, settings } = node;
         const { width, height } = nodesConfig[type];
-        return {
+       const newNode = {
             ...node,
             width,
             height,
@@ -27,6 +27,8 @@ class GraphService {
             ...nodesConfig.shared,
             data: { settings, width, height }
         };
+        delete newNode.settings; 
+        return newNode
     });
 
 
@@ -258,7 +260,6 @@ class GraphService {
     newNode = {};
     newDot = {};
     createNewData = (relations, nodes) => {
-
         relations.map(rel => {
             this.childId.push(rel.child.id);
             this.parentId.push(rel.parent.id);

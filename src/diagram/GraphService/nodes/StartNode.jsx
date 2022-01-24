@@ -6,8 +6,8 @@ import { useStyles } from "../../style/use-styles";
 import { Handle } from "react-flow-renderer";
 
 function StartNode(props) {
-  const { id, settings, data, type} = props;
-  const { onNodeClick } = data;
+  const { id, data, type} = props;
+  const { settings, onNodeClick} = data;
   const { name } = settings;
   const classes = useStyles();
 

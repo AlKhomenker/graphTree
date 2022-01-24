@@ -7,7 +7,7 @@ import { Handle } from "react-flow-renderer";
 
 function DelayNode(props) {
   const { id, data, type} = props;
-   const { onNodeClick, settings} = data;
+   const {settings, onNodeClick} = data;
   const { name, interval } = settings;
  
   const classes = useStyles();

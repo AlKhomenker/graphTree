@@ -103,19 +103,19 @@ const nodesConfig = {
     },
     [nodeTypes.email]: {
         width: 450,
-        height: 200
+        height: 160
     },
     [nodeTypes.sms]: {
         width: 450,
-        height: 200
+        height: 160
     },
     [nodeTypes.split]: {
         width: 450,
-        height: 200
+        height: 190
     },
     [nodeTypes.test]: {
         width: 450,
-        height: 200
+        height: 160
     },
     [nodeTypes.delay]: {
         width: 300,

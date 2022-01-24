@@ -1,7 +1,8 @@
 import Tree from "react-d3-tree";
 import { EmailNode, SmsNode, DelayNode, SplitNode, TestNode, StartNode, DotNode, ExitNode, ActionNode, PlusNode} from "../diagram/GraphService/nodes";
+import { useStyles } from "../diagram/style/use-styles";
 
-const extraWidth = 500;
+const extraHeight = 150;
 
 const types = {
     cartAbandonment: StartNode,
@@ -24,35 +25,45 @@ const RenderForeignObjectNode = (props) => {
 
   return(
     <g>
-        <foreignObject style={{width: width, height: height, x: posX, y: posY}}>
-          {
-            Object.entries(types).map(([key, Component]) => {
-
-              if (type === key) {
-                  return <Component key={id} {...nodeDatum}/>;
-              }
-              return null;
-            })
-          }
+      <foreignObject style={{width: width, height: height, x: posX, y: posY}}>
+        {
+          Object.entries(types).map(([key, Component]) => {
+            if (type === key) {
+                return <Component key={id} {...nodeDatum}/>;
+            }
+            return null;
+          })
+        }
       </foreignObject>
     </g>
   )
 }
 
+// const straightPathFunc = (linkDatum, orientation) => {
+//   const { source, target } = linkDatum;
+//   const customPath =`M${source.x},${source.y}L${target.x},${target.y}`
+//   console.log(customPath);
+//   return customPath
+// };
 
 export const CenteredTree = ({elements}) =>{
   const { innerWidth: widthWindow } = window;
-  const nodeSize = {x: 150, y: 150};
+  const nodeSize = {x: 350, y: 150}; //The amount of space each node element occupies.
+  const classes = useStyles();
+
   return (
-    <div style={{width: "100%", height: "100%", background: "#eee", margin: '0 auto'}}>
+    <div className={classes.graph}>
       <Tree
         data={elements}
         translate={{ x: widthWindow/2, y: 100 }}
-        nodeSize={nodeSize}
+        //nodeSize={nodeSize}
         orientation="vertical"
-        pathFunc="straight"//step
+        pathFunc="straight"
+        //pathFunc={straightPathFunc}
+        //pathClassFunc={() => classes.edge}
+        //onLinkClick={() => { console.log('click')}}
         zoom="0.7"
-        separation={{ nonSiblings: 4, siblings: 3 }}
+        separation={{ nonSiblings: 5, siblings: 3 }}
         renderCustomNodeElement={(node) => RenderForeignObjectNode({ ...node})}
       />
     </div>

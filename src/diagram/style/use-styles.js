@@ -1,6 +1,12 @@
 import { makeStyles } from '@material-ui/core';
 
 export const useStyles = makeStyles(() => ({
+    graph: {
+        width: "100%", 
+        height: "100%", 
+        background: "#eee", 
+        margin: '0 auto'
+    },
     txtBlock: {
         margin: '0 0 10px 0',
         display: 'flex'
