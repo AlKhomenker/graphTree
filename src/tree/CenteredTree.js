@@ -1,43 +1,7 @@
 import Tree from "react-d3-tree";
-import { EmailNode, SmsNode, DelayNode, SplitNode, TestNode, StartNode, DotNode, ExitNode, ActionNode, PlusNode} from "../diagram/GraphService/nodes";
 import { useStyles } from "../diagram/style/use-styles";
+import { ForeignNode } from "./ForeignNode";
 
-const extraHeight = 150;
-
-const types = {
-    cartAbandonment: StartNode,
-    delay: DelayNode,
-    email: EmailNode,
-    sms: SmsNode,
-    split: SplitNode,
-    test: TestNode,
-    action: ActionNode,
-    dot: DotNode,
-    plus: PlusNode,
-    exit: ExitNode
-};
-
-const RenderForeignObjectNode = (props) => {
-   const{ nodeDatum} = props;
-   const{id, type, width, height} = nodeDatum;
-   const posX = - width/2;
-   const posY = - height/2;
-
-  return(
-    <g>
-      <foreignObject style={{width: width, height: height, x: posX, y: posY}}>
-        {
-          Object.entries(types).map(([key, Component]) => {
-            if (type === key) {
-                return <Component key={id} {...nodeDatum}/>;
-            }
-            return null;
-          })
-        }
-      </foreignObject>
-    </g>
-  )
-}
 
 // const straightPathFunc = (linkDatum, orientation) => {
 //   const { source, target } = linkDatum;
@@ -64,7 +28,7 @@ export const CenteredTree = ({elements}) =>{
         //onLinkClick={() => { console.log('click')}}
         zoom="0.7"
         separation={{ nonSiblings: 5, siblings: 3 }}
-        renderCustomNodeElement={(node) => RenderForeignObjectNode({ ...node})}
+        renderCustomNodeElement={(node) => ForeignNode({ ...node})}
       />
     </div>
   )

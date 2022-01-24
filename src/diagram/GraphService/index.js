@@ -176,7 +176,6 @@ class GraphService {
 
         const newNode = this.createActionNode();
         newNode.parent_id = parent.id;
-        newNode.style = {...newNode.style, zIndex: 10000};
 
         const childIndex = nodes.findIndex(node => node.parent_id === currentNode.id);
         nodes[childIndex].parent_id = newNode.id;
@@ -211,17 +210,19 @@ class GraphService {
 
 
 
-    getLastNode = (relations, nodes) => {
-        let nodeIds = [];
-        for (const node of nodes) {
-            nodeIds.push(node.id);
-        }
+    getLastNodes = (lastsNodeIds) => {
+        let lastNodes = [];
+        lastsNodeIds.forEach(id => {
+            const currentNode = this.newData.find(node => node.id === id);
 
-        for (const { parent } of relations) {
-            nodeIds = nodeIds.filter(id => id !== parent.id);
-        }
-        const lastNode = nodes.find(node => node.id === nodeIds[0]);
-        return lastNode;
+            const plusNode = this.createDotNode(nodeTypes.plus);
+            const exitNode = this.createExitNode(nodeTypes.exit);
+
+            plusNode.parent_id = currentNode.id;
+            exitNode.parent_id = plusNode.id;
+            lastNodes = [...lastNodes, plusNode, exitNode];
+        })
+        return lastNodes
     };
 
 
@@ -239,19 +240,6 @@ class GraphService {
         type: 'next'
        } 
     }
-
-
-
-    newNodRel = [];
-    newRel;
-    createRelation = (nodes, relations) => {   
-        nodes.forEach((node, i) => {
-            this.newRel = this.createObjRelation(node.id,(nodes[i+1])?(nodes[i+1].id):null);
-            this.newNodRel.push(this.newRel);   
-        });
-        return this.newNodRel;  
-     }
-
 
 
     newData = [];
@@ -281,25 +269,13 @@ class GraphService {
                 }
                 this.newData = [...this.newData, this.newDot, this.newNode];
             }
-
             return this.newData
         })
 
         const lastsNodeIds = this.childId.filter(id => !this.parentId.includes(id));
-        let lastsNode = [];
+        let lastNodes = this.getLastNodes(lastsNodeIds);
 
-        lastsNodeIds.forEach(id => {
-            const currentNode = this.newData.find(node => node.id === id);
-
-            const plusNode = this.createDotNode(nodeTypes.plus);
-            const exitNode = this.createExitNode(nodeTypes.exit);
-
-            plusNode.parent_id = currentNode.id;
-            exitNode.parent_id = plusNode.id;
-            lastsNode = [...lastsNode, plusNode, exitNode]
-        })
-
-        return [...this.newData, ...lastsNode]
+        return [...this.newData, ...lastNodes]
     }
 
 

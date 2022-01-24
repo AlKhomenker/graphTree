@@ -16,6 +16,7 @@ const useLogic = (data) => {
 
         switch(type) {
             case nodeTypes.dot:
+                console.log(data.coordinates);
                 newNodes = GraphService.addNewNode(nodeTypes.action, data, newArr);
                 nodesWithEvents = GraphService.addEventsToNodes(newNodes, nodeEvent, actionNodeEvent);
                 dataTree = GraphService.createTreeData(nodesWithEvents)[0];
