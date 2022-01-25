@@ -17,8 +17,8 @@ function SplitNode(props) {
   const classes = useStyles();
   return (
     <>
-      <Grid container className={classes.component} id={id} onClick={() => onNodeClick(id)}>
-        <Grid item xs={10}>
+      <Grid container className={classes.component} id={id}>
+        <Grid item xs={10} onClick={() => onNodeClick(id)}>
              <Box className={classes.txtBlock}>
                  <Typography variant="h6" className={classes.h6}>
                      {name}
@@ -37,7 +37,7 @@ function SplitNode(props) {
         </Grid>
             
         <Grid item xs={2} className={classes.avatarBlock} >
-            <Typography>...</Typography>
+            <Typography onClick={() => onNodeClick({type:'close', id})}>...</Typography>
             <Avatar className={classes.avatar}/>
         </Grid>
       </Grid>

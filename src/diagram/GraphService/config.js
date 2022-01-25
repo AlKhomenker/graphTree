@@ -99,27 +99,27 @@ const nodesConfig = {
     },
     [nodeTypes.start]: {
         width: 450,
-        height: 160
+        height: 200
     },
     [nodeTypes.email]: {
         width: 450,
-        height: 160
+        height: 200
     },
     [nodeTypes.sms]: {
         width: 450,
-        height: 160
+        height: 200
     },
     [nodeTypes.split]: {
         width: 450,
-        height: 190
+        height: 200
     },
     [nodeTypes.test]: {
         width: 450,
-        height: 160
+        height: 200
     },
     [nodeTypes.delay]: {
         width: 300,
-        height: 40
+        height: 50
     },
     [nodeTypes.exit]: {
         width: 65,

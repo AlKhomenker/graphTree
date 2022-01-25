@@ -1,6 +1,14 @@
-import { EmailNode, SmsNode, DelayNode, SplitNode, TestNode, StartNode, DotNode, ExitNode, ActionNode, PlusNode} from "../diagram/GraphService/nodes";
-
-const extraHeight = 150;
+import { 
+  EmailNode, 
+  SmsNode, 
+  DelayNode, 
+  SplitNode, 
+  TestNode, 
+  StartNode, 
+  DotNode, 
+  ExitNode, 
+  ActionNode, 
+  PlusNode} from "../diagram/GraphService/nodes";
 
 const types = {
     cartAbandonment: StartNode,
@@ -15,12 +23,13 @@ const types = {
     exit: ExitNode
 };
 
-export const ForeignNode = (props) => {
-   const{ nodeDatum, hierarchyPointNode} = props;
-   const{id, type, width, height} = nodeDatum;
-   const{ x, y} = hierarchyPointNode;
-   const posX = - width/2;
-   const posY = - height/2;
+
+function ForeignNode(props) {
+  const{ nodeDatum, hierarchyPointNode} = props;
+  const{id, type, width, height} = nodeDatum;
+  const{ x, y } = hierarchyPointNode;
+  const posX = - width/2;
+  const posY = - height/2;
 
   return(
     <g>
@@ -37,3 +46,5 @@ export const ForeignNode = (props) => {
     </g>
   )
 }
+
+export default ForeignNode;

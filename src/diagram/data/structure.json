@@ -139,9 +139,9 @@
         {
           "id": "11",
           "version": 1,
-          "type": "split",
+          "type": "test",
           "settings": {
-            "name": "Split 2",
+            "name": "test 11",
             "state": "active",
             "interval": {
               "value": "1",

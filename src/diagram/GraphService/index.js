@@ -16,6 +16,28 @@ class GraphService {
     
     
 
+    createStartNode = (type) => {
+        const startNode = {
+        id: uuidv4(),
+        width: nodesConfig[type].width,
+        height: nodesConfig[type].height,
+        type: type,
+        style: nodesConfig.style,
+        ...nodesConfig.shared
+        }
+
+        startNode.data.settings = {
+        name: "Start Trigger",
+        description: '',
+        belongAudience: '',
+        trigger: '',
+        targetingConditions: []
+      }
+        return startNode
+    }
+
+
+
     createNodes = (nodes) => nodes.map((node) => {
         const { type, settings } = node;
         const { width, height } = nodesConfig[type];
@@ -191,19 +213,39 @@ class GraphService {
     removeNode = (id, nodes) => { // change if need to remove node with all branch
         const currentNode = nodes.find(node => node.id === id);
         const indexNode = nodes.findIndex(node => node.id === id);
-        const parent = nodes.find(node => node.id === currentNode.parent_id);
+        const dotParent = nodes.find(node => node.id === currentNode.parent_id);
+        const parent = nodes.find(node => node.id === dotParent.parent_id);
         const child = nodes.find(node => node.parent_id === currentNode.id);
         const dotNode = this.createDotNode(nodeTypes.dot);
         
-        if(child.type === nodeTypes.exit){
-            const plusNode = this.createDotNode(nodeTypes.plus);
-            plusNode.parent_id = parent.id;
-            child.parent_id = plusNode.id;
-            nodes.splice(indexNode, 1, plusNode);
-        }else{
-            dotNode.parent_id = parent.id;
-            child.parent_id = dotNode.id;
-            nodes.splice(indexNode, 1, dotNode);
+        console.log(nodes);
+        // if(child.type === nodeTypes.exit || nodeTypes.plus){
+        //     const plusNode = this.createDotNode(nodeTypes.plus);
+        //     plusNode.parent_id = parent.id;
+        //     child.parent_id = plusNode.id;
+        //     nodes.splice(indexNode, 1, plusNode);
+        // }else{
+        //     dotNode.parent_id = parent.id;
+        //     child.parent_id = dotNode.id;
+        //     nodes.splice(indexNode, 1, dotNode);
+        // }
+
+        switch(currentNode.type) {
+            case nodeTypes.action:
+                const plusNode = this.createDotNode(nodeTypes.plus);
+                plusNode.parent_id = dotParent.id;
+                child.parent_id = plusNode.id;
+                nodes.splice(indexNode, 1, plusNode);
+              break;
+            case nodeTypes.dot:
+                dotNode.parent_id = dotParent.id;
+                child.parent_id = dotNode.id;
+                nodes.splice(indexNode, 1, dotNode);
+              break;
+            default: 
+                const index = nodes.findIndex(node => node.id === dotParent.id);
+                child.parent_id = parent.id;
+                nodes.splice(index,1);
         }
         return [...nodes];
     };
@@ -227,6 +269,29 @@ class GraphService {
 
 
 
+    addPlusNodesByTypeNode = (nodes) => {
+        let newNodes = [];
+        const nodesByType = nodes.filter(node => node.type === 'split' || node.type === 'test');
+        nodesByType.forEach(currentNode => {
+           const children = nodes.filter(node => node.parent_id === currentNode.id);
+           const firstBranchNode = this.createExitNode(nodesInitialSettings[currentNode.type].firstBranch);
+           const secondBranchNode = this.createExitNode(nodesInitialSettings[currentNode.type].secondBranch);
+
+           firstBranchNode.parent_id = currentNode.id;
+           secondBranchNode.parent_id = currentNode.id;
+
+           const child1 = {...children[0], parent_id: firstBranchNode.id};
+           const child2 = {...children[1], parent_id: secondBranchNode.id};
+ 
+           newNodes = [...newNodes, firstBranchNode, secondBranchNode, child1, child2 ]
+        });
+
+        const filterNodes = nodes.filter(node => !newNodes.some(item => node.id === item.id));
+        return [...filterNodes, ...newNodes]
+    };
+
+
+
     createObjRelation = (parentNodeId, childNodeId) => {
        return{
            parent: {
@@ -240,6 +305,7 @@ class GraphService {
         type: 'next'
        } 
     }
+
 
 
     newData = [];
@@ -270,12 +336,13 @@ class GraphService {
                 this.newData = [...this.newData, this.newDot, this.newNode];
             }
             return this.newData
-        })
+        });
 
+        const newNodes = this.addPlusNodesByTypeNode(this.newData);
         const lastsNodeIds = this.childId.filter(id => !this.parentId.includes(id));
         let lastNodes = this.getLastNodes(lastsNodeIds);
-
-        return [...this.newData, ...lastNodes]
+        
+        return [...newNodes, ...lastNodes]
     }
 
 
@@ -287,9 +354,16 @@ class GraphService {
 
 
     prepareInitialData(data){
-    if (!data) {
+    if (!data.id) {
             //create journey
-            return;
+            const startNode = this.createStartNode(nodeTypes.start);
+            const plusNode = this.createDotNode(nodeTypes.plus);
+            const exitNode = this.createExitNode(nodeTypes.exit);
+
+            startNode.parent_id = null;
+            plusNode.parent_id = startNode.id;
+            exitNode.parent_id = plusNode.id;
+            return [startNode, plusNode, exitNode];
         }
         
         const startNode = data.triggers[0];     

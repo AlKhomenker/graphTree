@@ -18,9 +18,10 @@ function EmailNode(props) {
   
   return (
     <>
-          <Grid container className={classes.component}  onClick={() => onNodeClick({type, id})}>
-            <Grid item xs={10}>
-                <Box className={classes.txtBlock}>
+          <Grid container className={`${classes.component} ${classes.componentEmail}`}>
+            <Grid item xs={10} className={classes.contentBlock} onClick={() => onNodeClick({type, id})}>
+              <Box>
+                 <Box className={classes.txtBlock}>
                     <Typography variant="h6" className={classes.h6}>
                         {name}
                     </Typography>
@@ -31,14 +32,15 @@ function EmailNode(props) {
                 </Box>
 
                 <Typography variant="h6" style={{color:'#808080'}}>
-                    {subject}
+                    {'subject'}
                 </Typography>
+              </Box>
 
                 <MobileStepper className={classes.steps} variant="dots" steps={3} position="static" />
             </Grid>
             
             <Grid item xs={2} className={classes.avatarBlock} >
-                <Typography>...</Typography>
+                <Typography onClick={() => onNodeClick({type:'close', id})}>...</Typography>
                 <Avatar className={classes.avatar}/>
             </Grid>
         </Grid>

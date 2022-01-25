@@ -8,6 +8,7 @@ export const useStyles = makeStyles(() => ({
         margin: '0 auto'
     },
     txtBlock: {
+        width: "100%",
         margin: '0 0 10px 0',
         display: 'flex'
     },
@@ -29,9 +30,11 @@ export const useStyles = makeStyles(() => ({
     },
     blockFlex: {
         width: '100%',
+        height: '100%',
         display: 'flex',
         justifyContent: 'space-between',
-        alignContent: 'center',
+        alignItems: 'center',
+        alignContent: 'center'
     },
     componentAction: {
         width: '600px',
@@ -58,16 +61,16 @@ export const useStyles = makeStyles(() => ({
         }
     },
     componentStart: {
-        height: '160px',
+        height: '200px',
     },
     componentEmail: {
-        height: '230px',
+        height: '200px',
     },
     componentDelay: {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        height: '40px',
+        height: '50px',
         width: '290px',
         padding: '5px 20px',
         borderRadius: '30px',
@@ -112,7 +115,7 @@ export const useStyles = makeStyles(() => ({
     avatar: {
         width: '60px',
         height: '60px',
-        margin: '0 auto 10px',
+        margin: '0 auto',
         padding: '0'
     },
     avatarBlock: {
@@ -125,7 +128,14 @@ export const useStyles = makeStyles(() => ({
         display: 'flex',
         alignItems: 'flex-end'
     },
+    contentBlock: {
+        width: 'auto',
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignContent: 'space-between'
+    },
     steps: {
+        width: "100%",
         backgroundColor: 'transparent',
         padding: '30px 0 0'
     },

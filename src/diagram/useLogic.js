@@ -15,16 +15,19 @@ const useLogic = (data) => {
         let newNodes, nodesWithEvents, dataTree;
 
         switch(type) {
-            case nodeTypes.dot:
-                console.log(data.coordinates);
-                newNodes = GraphService.addNewNode(nodeTypes.action, data, newArr);
+            case nodeTypes.close:
+                console.log('close', id);
+                newNodes = GraphService.removeNode(id, newArr);
                 nodesWithEvents = GraphService.addEventsToNodes(newNodes, nodeEvent, actionNodeEvent);
                 dataTree = GraphService.createTreeData(nodesWithEvents)[0];
                 setNodes(newNodes);
                 setElements(dataTree);
               break;
-            case nodeTypes.plus:
+            case nodeTypes.dot:
                 //add changes by a new logic
+                console.log(data.coordinates);
+              break;
+            case nodeTypes.plus:
                 newNodes = GraphService.addNewNode(nodeTypes.action, data, newArr);
                 nodesWithEvents = GraphService.addEventsToNodes(newNodes, nodeEvent, actionNodeEvent);
                 dataTree = GraphService.createTreeData(nodesWithEvents)[0];
@@ -54,7 +57,6 @@ const useLogic = (data) => {
         setNodes(newNodes);
         setElements(dataTree);
     }
-
     
 
     useEffect(() => {
@@ -65,7 +67,6 @@ const useLogic = (data) => {
         setElements(dataTree);
 // eslint-disable-next-line  
     }, []);
-
 
     
     return { elements }

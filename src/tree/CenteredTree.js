@@ -1,6 +1,7 @@
 import Tree from "react-d3-tree";
 import { useStyles } from "../diagram/style/use-styles";
-import { ForeignNode } from "./ForeignNode";
+import ForeignNode from "./ForeignNode";
+
 
 
 // const straightPathFunc = (linkDatum, orientation) => {
@@ -10,9 +11,10 @@ import { ForeignNode } from "./ForeignNode";
 //   return customPath
 // };
 
-export const CenteredTree = ({elements}) =>{
+
+function CenteredTree({elements}) {
   const { innerWidth: widthWindow } = window;
-  const nodeSize = {x: 350, y: 150}; //The amount of space each node element occupies.
+  const nodeSize = {x: 150, y: 150}; //The amount of space each node element occupies.
   const classes = useStyles();
 
   return (
@@ -34,4 +36,4 @@ export const CenteredTree = ({elements}) =>{
   )
 }
 
-
+export default CenteredTree;

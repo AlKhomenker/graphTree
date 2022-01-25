@@ -17,8 +17,8 @@ function SmsNode(props) {
   
   return (
     <>
-      <Grid container className={classes.component}  onClick={() => onNodeClick({type, id})}>
-        <Grid item xs={10}>
+      <Grid container className={classes.component}>
+        <Grid item xs={10} onClick={() => onNodeClick({type, id})}>
              <Box className={classes.txtBlock}>
                 <Typography variant="h6" className={classes.h6}>
                     {name}
@@ -30,14 +30,14 @@ function SmsNode(props) {
             </Box>
 
             <Typography variant="h6" style={{color:'#808080'}}>
-                {subject}
+                {'subject'}
             </Typography>
 
             <MobileStepper className={classes.steps} variant="dots" steps={3} position="static" />
         </Grid>
             
         <Grid item xs={2} className={classes.avatarBlock} >
-            <Typography>...</Typography>
+            <Typography onClick={() => onNodeClick({type:'close', id})}>...</Typography>
              <Avatar className={classes.avatar}/>
         </Grid>
       </Grid>
