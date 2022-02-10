@@ -16,7 +16,6 @@ const useLogic = (data) => {
 
         switch(type) {
             case nodeTypes.close:
-                console.log('close', id);
                 newNodes = GraphService.removeNode(id, newArr);
                 nodesWithEvents = GraphService.addEventsToNodes(newNodes, nodeEvent, actionNodeEvent);
                 dataTree = GraphService.createTreeData(nodesWithEvents)[0];
@@ -25,7 +24,6 @@ const useLogic = (data) => {
               break;
             case nodeTypes.dot:
                 //add changes by a new logic
-                console.log(data.coordinates);
               break;
             case nodeTypes.plus:
                 newNodes = GraphService.addNewNode(nodeTypes.action, data, newArr);

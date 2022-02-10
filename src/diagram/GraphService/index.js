@@ -210,6 +210,14 @@ class GraphService {
 
 
 
+    removeAllChildrenNode = (nodes) => {   
+
+
+        return [...nodes];
+    }
+
+
+
     removeNode = (id, nodes) => { // change if need to remove node with all branch
         const currentNode = nodes.find(node => node.id === id);
         const indexNode = nodes.findIndex(node => node.id === id);
@@ -218,7 +226,6 @@ class GraphService {
         const child = nodes.find(node => node.parent_id === currentNode.id);
         const dotNode = this.createDotNode(nodeTypes.dot);
         
-        console.log(nodes);
         // if(child.type === nodeTypes.exit || nodeTypes.plus){
         //     const plusNode = this.createDotNode(nodeTypes.plus);
         //     plusNode.parent_id = parent.id;
@@ -241,6 +248,9 @@ class GraphService {
                 dotNode.parent_id = dotParent.id;
                 child.parent_id = dotNode.id;
                 nodes.splice(indexNode, 1, dotNode);
+              break;
+            case nodeTypes.split: case nodeTypes.test:
+                this.removeAllChildrenNode();
               break;
             default: 
                 const index = nodes.findIndex(node => node.id === dotParent.id);
@@ -341,7 +351,7 @@ class GraphService {
         const newNodes = this.addPlusNodesByTypeNode(this.newData);
         const lastsNodeIds = this.childId.filter(id => !this.parentId.includes(id));
         let lastNodes = this.getLastNodes(lastsNodeIds);
-        
+
         return [...newNodes, ...lastNodes]
     }
 
